@@ -5,6 +5,8 @@
  */
 package sweng311_part2;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author kalvi_000
@@ -16,6 +18,15 @@ public class SWENG311_part2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        //create a new jframe that holds the main menu
+        Main_Menu frame = new Main_Menu();
+        //terminate on close
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //set the default size of the frame
+        //frame.setSize(500, 500);
+        //make the frame visible
+        frame.setVisible(true);
     }
     
 }
