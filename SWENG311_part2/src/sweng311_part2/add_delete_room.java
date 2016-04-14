@@ -56,8 +56,6 @@ public class add_delete_room extends javax.swing.JFrame {
 
         jButton2.setText("Delete Room");
 
-        jTextField6.setText("Room Number");
-
         jButton3.setText("Add Room");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
