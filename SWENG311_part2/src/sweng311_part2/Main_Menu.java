@@ -80,6 +80,11 @@ public class Main_Menu extends javax.swing.JFrame {
         jButton7.setText("Import from File");
 
         jButton8.setText("Add/Delete Rooms");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("View Current Schedule");
 
@@ -176,18 +181,27 @@ public class Main_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
-        // TODO add your handling code here:
-        
-        //create a new jframe that holds the main menu
-        Add_course add = new Add_course();
+        //create a new jframe that holds the add_course menu
+        Add_course frame = new Add_course();
         //terminate on close
-        add.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         //set the default size of the frame
         //frame.setSize(500, 500);
         //make the frame visible
-        add.setVisible(true);
+        frame.setVisible(true);
 
     }//GEN-LAST:event_Add_CourseActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        //create a new jframe that holds the main menu
+        add_delete_room frame = new add_delete_room();
+        //terminate on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //set the default size of the frame
+        //frame.setSize(500, 500);
+        //make the frame visible
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
