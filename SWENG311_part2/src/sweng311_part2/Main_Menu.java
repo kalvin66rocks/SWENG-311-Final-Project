@@ -208,10 +208,8 @@ public class Main_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        JFileChooser chooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "Serializable object", "ser");
-    chooser.setFileFilter(filter);
+        //add in file slection logic here
+        //make this only for students
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
