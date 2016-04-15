@@ -5,6 +5,7 @@
  */
 package sweng311_part2;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
@@ -166,7 +167,21 @@ public class Main_Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "Serialized Java Files", "ser");
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            File selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        
+        // will need an additional dialgoue for student or room, however this ends up being configured
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
@@ -208,8 +223,20 @@ public class Main_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        //add in file slection logic here
-        //make this only for students
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "Serialized Java Files", "ser");
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            File selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        // will need an additional dialgoue for student or room, however this ends up being configured
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
