@@ -5,6 +5,7 @@
  */
 package sweng311_part2;
 
+import java.util.Vector;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +19,8 @@ public class SWENG311_part2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Vector<Student> students = new Vector<>(1, 1);
+        Vector<Room> rooms = new Vector<>(1, 1);
         
         //create a new jframe that holds the main menu
         Main_Menu frame = new Main_Menu();
