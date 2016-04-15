@@ -5,13 +5,14 @@
  */
 package sweng311_part2;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
  *
  * @author kalvi_000
  */
-public class Room {
+public class Room implements Serializable  {
     
     private int number;
     Vector<Course> courses = new Vector<>(1,1);

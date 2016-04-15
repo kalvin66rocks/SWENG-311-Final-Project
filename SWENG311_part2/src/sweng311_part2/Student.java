@@ -5,11 +5,13 @@
  */
 package sweng311_part2;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kalvi_000
  */
-public class Student {
+public class Student implements Serializable{
     private String first_name;
     private String last_name;
     private long phone_number;
