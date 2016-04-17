@@ -74,6 +74,11 @@ public class Add_delete_students extends javax.swing.JFrame {
         jTextField7.setBorder(null);
 
         jButton2.setText("Add Button");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,6 +143,22 @@ public class Add_delete_students extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String first;
+        String last;
+        long phoneNumber=0;
+        boolean validEntry = true;
+        first = jTextField5.getText();
+        last = jTextField6.getText();
+        
+        try {
+            phoneNumber = Long.parseLong(jTextField7.getText());
+        } catch (NumberFormatException nfe) {
+            System.out.println("NumberFormatException: " + nfe.getMessage());
+            validEntry = false;
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
