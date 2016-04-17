@@ -5,6 +5,8 @@
  */
 package sweng311_part2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Kevin
@@ -149,14 +151,28 @@ public class Add_delete_students extends javax.swing.JFrame {
         String last;
         long phoneNumber=0;
         boolean validEntry = true;
+        boolean validNumber = true;
         first = jTextField5.getText();
         last = jTextField6.getText();
         
         try {
-            phoneNumber = Long.parseLong(jTextField7.getText());
+            phoneNumber = Long.parseLong(jTextField8.getText());
         } catch (NumberFormatException nfe) {
-            System.out.println("NumberFormatException: " + nfe.getMessage());
+            //System.out.println("NumberFormatException: " + nfe.getMessage());
             validEntry = false;
+        }
+        if(!validEntry){
+            jTextField8.setText("");
+            JOptionPane.showMessageDialog(null, "You must enter a phone number consiting only of digits");
+        }
+        if(validEntry){
+            if (phoneNumber < 1000000000) {
+                JOptionPane.showMessageDialog(null, "You must enter a 10 digit phone number");
+                validNumber = false;
+            }
+        }
+        if(validNumber){
+            SWENG311_part2.students.add(new Student(first, last, phoneNumber));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
