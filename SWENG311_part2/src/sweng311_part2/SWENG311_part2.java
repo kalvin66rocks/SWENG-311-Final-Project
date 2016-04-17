@@ -15,11 +15,11 @@ import javax.swing.JFrame;
 public class SWENG311_part2 {
     
         public static Vector<Student> students = new Vector<>(1, 1);
-        //public Vector<Room> rooms = new Vector<>(1, 1);    
+        public static Vector<Room> rooms = new Vector<>(1, 1);    
     public static void main(String[] args) {
         // TODO code application logic here
-        Vector<Student> students = new Vector<>(1, 1);
-        Vector<Room> rooms = new Vector<>(1, 1);
+        //Vector<Student> students = new Vector<>(1, 1);
+        //Vector<Room> rooms = new Vector<>(1, 1);
         
         //test for students vector so that it is not empty
         students.add(new Student("Kevin","Brenneman",1234567890));
@@ -32,10 +32,6 @@ public class SWENG311_part2 {
         //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
-    }
-    
-    public static Vector getStudentVector(){
-        return students;
     }
     
 }

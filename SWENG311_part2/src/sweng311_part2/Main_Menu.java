@@ -195,7 +195,7 @@ public class Main_Menu extends javax.swing.JFrame {
         try{
             //this line is part of a bigger issue that I should be able to access public varaibles in main
             //but for now it will retrieve the object from main
-        output.writeObject(SWENG311_part2.getStudentVector());
+        output.writeObject(SWENG311_part2.students);
         } catch (NoSuchElementException elementException) {
             System.err.println("Bigger problems as no elent is found");
         } catch (IOException ioException) {
