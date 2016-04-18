@@ -12,6 +12,9 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.NoSuchElementException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -193,8 +196,6 @@ public class Main_Menu extends javax.swing.JFrame {
         }
         //try to write to the file
         try{
-            //this line is part of a bigger issue that I should be able to access public varaibles in main
-            //but for now it will retrieve the object from main
         output.writeObject(SWENG311_part2.students);
         } catch (NoSuchElementException elementException) {
             System.err.println("Bigger problems as no elent is found");
@@ -249,15 +250,37 @@ public class Main_Menu extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "Serialized Java Files", "ser");
         fileChooser.setFileFilter(filter);
+        File selectedFile = null;
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
-            File selectedFile = fileChooser.getSelectedFile();
+            selectedFile = fileChooser.getSelectedFile();
             System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         }
         else{
             System.out.println("No File selected");
         }
+        
+        try{
+            input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
+        }
+        catch(IOException ioException){
+            System.err.println("Error. File failed to open on open file");
+        }
+        
+        //try to read from the file
+        try{
+            SWENG311_part2.students =(Vector)input.readObject();
+        output.writeObject(SWENG311_part2.students);
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Bigger problems as no element is found");
+        } catch (IOException ioException) {
+            System.err.println("Error. File failed to open on write");
+        } catch (ClassNotFoundException ex) {
+            //Logger.getLogger(Main_Menu.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error. class not found exception");
+        }
+        
         
         // will need an additional dialgoue for student or room, however this ends up being configured
     }//GEN-LAST:event_importButtonActionPerformed
