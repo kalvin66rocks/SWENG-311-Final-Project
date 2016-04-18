@@ -17,7 +17,7 @@ public class Course {
     private String name;
     Vector<Student> students = new Vector<>(1,1);
   
-    public Course (String name,int time, Room room){
+    public Course (String name,int time){
         this.time = time;
         this.name = name;
     }
