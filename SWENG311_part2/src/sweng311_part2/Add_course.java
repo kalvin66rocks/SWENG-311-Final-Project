@@ -5,6 +5,8 @@
  */
 package sweng311_part2;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Kevin
@@ -14,8 +16,19 @@ public class Add_course extends javax.swing.JFrame {
     /**
      * Creates new form Add_course
      */
+    
+    private DefaultListModel listModel;
+    
     public Add_course() {
         initComponents();
+    }
+    
+    public DefaultListModel setFeel(){
+        listModel = new DefaultListModel();
+        for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
+            listModel.addElement(Integer.toString(SWENG311_part2.rooms.get(i).get_number()));
+        }
+        return listModel;
     }
 
     /**
@@ -65,11 +78,7 @@ public class Add_course extends javax.swing.JFrame {
         jTextField5.setText(" Room Number:");
         jTextField5.setBorder(null);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "1", "2", "3", "4", "5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setModel(setFeel());
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jList1);
 
