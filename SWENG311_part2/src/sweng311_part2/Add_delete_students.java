@@ -22,6 +22,14 @@ public class Add_delete_students extends javax.swing.JFrame {
     public Add_delete_students() {
         initComponents();
     }
+    
+    public DefaultListModel setFeel(){
+        listModel = new DefaultListModel();
+        for (int i = 0; i < SWENG311_part2.students.size(); i++) {
+            listModel.addElement(SWENG311_part2.students.get(i).get_first() + " " + SWENG311_part2.students.get(i).get_last());
+        }
+        return listModel;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,15 +43,15 @@ public class Add_delete_students extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        currentStudentList = new javax.swing.JList<>();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        deleteStudentButton = new javax.swing.JButton();
+        firstNameField = new javax.swing.JTextField();
+        lastNameField = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        phoneNumberField = new javax.swing.JTextField();
+        addStudentButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,8 +65,9 @@ public class Add_delete_students extends javax.swing.JFrame {
         jTextField2.setText("Current Student List");
         jTextField2.setBorder(null);
 
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
+        currentStudentList.setModel(setFeel());
+        currentStudentList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(currentStudentList);
 
         jTextField3.setEditable(false);
         jTextField3.setText("First Name: ");
@@ -67,17 +76,27 @@ public class Add_delete_students extends javax.swing.JFrame {
         jTextField4.setEditable(false);
         jTextField4.setText("Last Name: ");
         jTextField4.setBorder(null);
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Delete Student");
+        deleteStudentButton.setText("Delete Student");
+        deleteStudentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteStudentButtonActionPerformed(evt);
+            }
+        });
 
         jTextField7.setEditable(false);
         jTextField7.setText("Phone Number: ");
         jTextField7.setBorder(null);
 
-        jButton2.setText("Add Button");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        addStudentButton.setText("Add Student");
+        addStudentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                addStudentButtonActionPerformed(evt);
             }
         });
 
@@ -93,21 +112,25 @@ public class Add_delete_students extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField7)
                             .addComponent(jTextField4)
-                            .addComponent(jTextField3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField3)
+                                .addGap(16, 16, 16))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField7)
+                                .addGap(12, 12, 12)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField8))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lastNameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                            .addComponent(firstNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phoneNumberField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addStudentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
@@ -117,50 +140,50 @@ public class Add_delete_students extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton2)))
-                .addGap(16, 16, 16)
-                .addComponent(jButton1)
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addStudentButton)))
+                .addGap(37, 37, 37)
+                .addComponent(deleteStudentButton)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
         String first;
         String last;
         long phoneNumber = 0;
         boolean validEntry = true;
         boolean validNumber = true;
-        first = jTextField5.getText();
-        last = jTextField6.getText();
+        first = firstNameField.getText();
+        last = lastNameField.getText();
 
         //check the first and last names to see if they contain numbers
-        if (first.matches(".*\\d.*") || last.matches(".*\\d.*")) {
+        if (first.matches(".*\\d.*") || last.matches(".*\\d.*")|| first.equals("")||last.equals("")) {
             // contains a number
             validEntry = false;
-            JOptionPane.showMessageDialog(null, "Names may not contain numbers");
-            jTextField5.setText("");
-            jTextField6.setText("");
-            jTextField8.setText("");
+            JOptionPane.showMessageDialog(null, "Names may not contain numbers or be blank");
+            firstNameField.setText("");
+            lastNameField.setText("");
+            phoneNumberField.setText("");
         } else {
             // does not contain a number
         }
@@ -168,13 +191,13 @@ public class Add_delete_students extends javax.swing.JFrame {
         if (validEntry) {
             //attempt to convert the string to a long, if we can't then it is not a valid phone number
             try {
-                phoneNumber = Long.parseLong(jTextField8.getText());
+                phoneNumber = Long.parseLong(phoneNumberField.getText());
             } catch (NumberFormatException nfe) {
                 //System.out.println("NumberFormatException: " + nfe.getMessage());
                 validEntry = false;
             }
             if (!validEntry) {
-                jTextField8.setText("");
+                phoneNumberField.setText("");
                 JOptionPane.showMessageDialog(null, "You must enter a phone number consiting only of digits");
             }
             if (validEntry) {
@@ -186,25 +209,56 @@ public class Add_delete_students extends javax.swing.JFrame {
         }
         //if we have a valid phone number and have not encountered an errr
         if (validNumber && validEntry) {
-            
+            boolean duplicate = false;
             //need to check for duplicate student here
-            //only need to check first and last name, phone number slightly irrelevant
-            SWENG311_part2.students.add(new Student(first, last, phoneNumber));
-
-            listModel = new DefaultListModel();
             for (int i = 0; i < SWENG311_part2.students.size(); i++) {
-                listModel.addElement(SWENG311_part2.students.get(i).get_first() + " " + SWENG311_part2.students.get(i).get_last());
+                if (SWENG311_part2.students.get(i).get_first().equals(first) && SWENG311_part2.students.get(i).get_last().equals(last)) {
+                    duplicate = true;
+                    JOptionPane.showMessageDialog(null, "Student already exists, student not added");
+                    firstNameField.setText("");
+                    lastNameField.setText("");
+                    phoneNumberField.setText("");
+                }
             }
-            jList1.setModel(listModel);
-            jTextField5.setText("");
-            jTextField6.setText("");
-            jTextField8.setText("");
+            if (!duplicate) {
+                //only need to check first and last name, phone number slightly irrelevant
+                SWENG311_part2.students.add(new Student(first, last, phoneNumber));
+
+                listModel = new DefaultListModel();
+                for (int i = 0; i < SWENG311_part2.students.size(); i++) {
+                    listModel.addElement(SWENG311_part2.students.get(i).get_first() + " " + SWENG311_part2.students.get(i).get_last());
+                }
+                currentStudentList.setModel(listModel);
+                firstNameField.setText("");
+                lastNameField.setText("");
+                phoneNumberField.setText("");
+            }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_addStudentButtonActionPerformed
+
+    private void deleteStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentButtonActionPerformed
+       try{
+        int position = currentStudentList.getSelectedIndex();
+        SWENG311_part2.students.remove(position);
+       }
+       catch(ArrayIndexOutOfBoundsException e){
+           //do nothing student array is empty and want to catch exception
+       }
+        listModel = new DefaultListModel();
+        for (int i = 0; i < SWENG311_part2.students.size(); i++) {
+            listModel.addElement(SWENG311_part2.students.get(i).get_first() + " " + SWENG311_part2.students.get(i).get_last());
+        }
+        currentStudentList.setModel(listModel);
+    }//GEN-LAST:event_deleteStudentButtonActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -229,6 +283,7 @@ public class Add_delete_students extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -238,17 +293,17 @@ public class Add_delete_students extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton addStudentButton;
+    private javax.swing.JList<String> currentStudentList;
+    private javax.swing.JButton deleteStudentButton;
+    private javax.swing.JTextField firstNameField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField lastNameField;
+    private javax.swing.JTextField phoneNumberField;
     // End of variables declaration//GEN-END:variables
 }

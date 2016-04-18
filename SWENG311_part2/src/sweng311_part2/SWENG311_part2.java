@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 public class SWENG311_part2 {
 
     //public variables that we can acces from other classes within the package
-    protected static Vector<Student> students = new Vector<>(1, 1);
-    protected static Vector<Room> rooms = new Vector<>(1, 1);
+    protected static Vector<Student> students = new Vector<>(0, 1);
+    protected static Vector<Room> rooms = new Vector<>(0, 1);
 
     public static void main(String[] args) {
 
