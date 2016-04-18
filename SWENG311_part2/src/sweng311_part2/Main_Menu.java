@@ -5,7 +5,19 @@
  */
 package sweng311_part2;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -13,9 +25,8 @@ import javax.swing.JFrame;
  */
 public class Main_Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main_Menu
-     */
+    private static ObjectOutputStream output;
+    private static ObjectInputStream input;
     public Main_Menu() {
         initComponents();
     }
@@ -29,13 +40,13 @@ public class Main_Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        addDeleteStudents = new javax.swing.JButton();
         Add_Course = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        exportButton = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        importButton = new javax.swing.JButton();
+        addDeleteRooms = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -43,10 +54,10 @@ public class Main_Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Add/Delete Students");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addDeleteStudents.setText("Add/Delete Students");
+        addDeleteStudents.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addDeleteStudentsActionPerformed(evt);
             }
         });
 
@@ -57,10 +68,10 @@ public class Main_Menu extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Export to File");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        exportButton.setText("Export to File");
+        exportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                exportButtonActionPerformed(evt);
             }
         });
 
@@ -71,12 +82,17 @@ public class Main_Menu extends javax.swing.JFrame {
         jTextField1.setText("   Course Registration");
         jTextField1.setBorder(null);
 
-        jButton7.setText("Import from File");
-
-        jButton8.setText("Add/Delete Rooms");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        importButton.setText("Import from File");
+        importButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                importButtonActionPerformed(evt);
+            }
+        });
+
+        addDeleteRooms.setText("Add/Delete Rooms");
+        addDeleteRooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDeleteRoomsActionPerformed(evt);
             }
         });
 
@@ -109,21 +125,18 @@ public class Main_Menu extends javax.swing.JFrame {
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(Add_Course, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(exportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(importButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addDeleteRooms, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addDeleteStudents, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(Add_Course, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                            .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,29 +151,61 @@ public class Main_Menu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Add_Course)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton8))
+                        .addComponent(addDeleteRooms))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton11)
                         .addGap(18, 18, 18)
                         .addComponent(jButton12)
                         .addGap(18, 18, 18)
                         .addComponent(jButton13))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(addDeleteStudents, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(jButton6)
-                .addGap(67, 67, 67)
-                .addComponent(jButton5)
+                .addGap(35, 35, 35)
+                .addComponent(importButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addComponent(exportButton)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        File selectedFile = null;
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "Serialized Java Files", "ser");
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        
+        //try to open the file
+        try{
+            output = new ObjectOutputStream(Files.newOutputStream(Paths.get(selectedFile.getPath())));
+        }
+        catch(IOException ioException){
+            System.err.println("Error. File failed to open on open file");
+        }
+        //try to write to the file
+        try{
+        output.writeObject(SWENG311_part2.students);
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Bigger problems as no elent is found");
+        } catch (IOException ioException) {
+            System.err.println("Error. File failed to open on write");
+        }
+        
+        
+        // will need an additional dialgoue for room
+    }//GEN-LAST:event_exportButtonActionPerformed
 
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
         //create a new jframe that holds the add_course menu
@@ -174,7 +219,7 @@ public class Main_Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Add_CourseActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void addDeleteRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDeleteRoomsActionPerformed
         //create a new jframe that holds the main menu
         add_delete_room frame = new add_delete_room();
         //terminate on close
@@ -183,13 +228,13 @@ public class Main_Menu extends javax.swing.JFrame {
         //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_addDeleteRoomsActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addDeleteStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDeleteStudentsActionPerformed
         //create a new jframe that holds the main menu
         Add_delete_students frame = new Add_delete_students();
         //terminate on close
@@ -198,7 +243,47 @@ public class Main_Menu extends javax.swing.JFrame {
         //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addDeleteStudentsActionPerformed
+
+    private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "Serialized Java Files", "ser");
+        fileChooser.setFileFilter(filter);
+        File selectedFile = null;
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        
+        try{
+            input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
+        }
+        catch(IOException ioException){
+            System.err.println("Error. File failed to open on open file");
+        }
+        
+        //try to read from the file
+        try{
+            SWENG311_part2.students =(Vector)input.readObject();
+        output.writeObject(SWENG311_part2.students);
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Bigger problems as no element is found");
+        } catch (IOException ioException) {
+            System.err.println("Error. File failed to open on write");
+        } catch (ClassNotFoundException ex) {
+            //Logger.getLogger(Main_Menu.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error. class not found exception");
+        }
+        
+        
+        // will need an additional dialgoue for student or room, however this ends up being configured
+    }//GEN-LAST:event_importButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,14 +322,14 @@ public class Main_Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Add_Course;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addDeleteRooms;
+    private javax.swing.JButton addDeleteStudents;
+    private javax.swing.JButton exportButton;
+    private javax.swing.JButton importButton;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

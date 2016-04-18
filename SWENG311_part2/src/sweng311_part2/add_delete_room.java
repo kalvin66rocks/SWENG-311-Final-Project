@@ -5,6 +5,9 @@
  */
 package sweng311_part2;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Kevin
@@ -14,8 +17,19 @@ public class add_delete_room extends javax.swing.JFrame {
     /**
      * Creates new form add_delete_room
      */
+    
+    private DefaultListModel listModel;
+    
     public add_delete_room() {
         initComponents();
+    }
+    
+    public DefaultListModel setFeel(){
+        listModel = new DefaultListModel();
+        for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
+            listModel.addElement(Integer.toString(SWENG311_part2.rooms.get(i).get_number()));
+        }
+        return listModel;
     }
 
     /**
@@ -28,21 +42,18 @@ public class add_delete_room extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        currentRoomList = new javax.swing.JList<>();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        deleteRoomButton = new javax.swing.JButton();
         jTextField6 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        addRoomButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        currentRoomList.setModel(setFeel());
+        currentRoomList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(currentRoomList);
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -54,53 +65,124 @@ public class add_delete_room extends javax.swing.JFrame {
         jTextField2.setText(" Add Room");
         jTextField2.setBorder(null);
 
-        jButton2.setText("Delete Room");
+        deleteRoomButton.setText("Delete Room");
+        deleteRoomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteRoomButtonActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Add Room");
+        addRoomButton.setText("Add Room");
+        addRoomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRoomButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
-                .addGap(34, 34, 34)
+                    .addComponent(addRoomButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(74, 74, 74))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(deleteRoomButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(162, 162, 162))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                        .addGap(56, 56, 56)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addComponent(addRoomButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteRoomButton)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRoomButtonActionPerformed
+        String roomNumber = jTextField6.getText();
+        boolean valid = true;
+        int number=0;
+        //checks to see if the field was left blank
+        if (roomNumber.equals("")) {
+            // contains nothing
+            JOptionPane.showMessageDialog(null, "You must enter a room number");
+            valid = false;
+            jTextField6.setText("");
+        } else {
+            // contains something
+        }
+        try{
+            number = Integer.parseInt(roomNumber);
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Room numbers can only contain numbers");
+            valid = false;
+            jTextField6.setText("");
+        }
+        if(valid){
+            boolean duplicate = false;
+            for(int i =0; i < SWENG311_part2.rooms.size();i++){
+                if(SWENG311_part2.rooms.get(i).get_number()== number){
+                    duplicate = true;
+                    JOptionPane.showMessageDialog(null, "Room already exists");
+                    jTextField6.setText("");
+                }
+            }
+            if (!duplicate) {
+                SWENG311_part2.rooms.add(new Room(number));
+                jTextField6.setText("");
+                
+                listModel = new DefaultListModel();
+                for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
+                    listModel.addElement(Integer.toString(SWENG311_part2.rooms.get(i).get_number()));
+                }
+                currentRoomList.setModel(listModel);
+                jTextField6.setText("");
+        
+            }
+        }
+        
+    }//GEN-LAST:event_addRoomButtonActionPerformed
+
+    private void deleteRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRoomButtonActionPerformed
+        try{
+        int position = currentRoomList.getSelectedIndex();
+        SWENG311_part2.rooms.remove(position);
+       }
+       catch(ArrayIndexOutOfBoundsException e){
+           //do nothing student array is empty and want to catch exception
+       }
+        listModel = new DefaultListModel();
+        for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
+            listModel.addElement(Integer.toString(SWENG311_part2.rooms.get(i).get_number()));
+        }
+        currentRoomList.setModel(listModel);
+        jTextField6.setText("");
+    }//GEN-LAST:event_deleteRoomButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,9 +220,9 @@ public class add_delete_room extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton addRoomButton;
+    private javax.swing.JList<String> currentRoomList;
+    private javax.swing.JButton deleteRoomButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

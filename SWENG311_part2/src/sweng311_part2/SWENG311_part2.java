@@ -5,6 +5,7 @@
  */
 package sweng311_part2;
 
+import java.util.Vector;
 import javax.swing.JFrame;
 
 /**
@@ -13,20 +14,18 @@ import javax.swing.JFrame;
  */
 public class SWENG311_part2 {
 
-    /**
-     * @param args the command line arguments
-     */
+    //public variables that we can acces from other classes within the package
+    protected static Vector<Student> students = new Vector<>(0, 1);
+    protected static Vector<Room> rooms = new Vector<>(0, 1);
+
     public static void main(String[] args) {
-        // TODO code application logic here
-        
+
         //create a new jframe that holds the main menu
         Main_Menu frame = new Main_Menu();
         //terminate on close
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //set the default size of the frame
-        //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
     }
-    
+
 }

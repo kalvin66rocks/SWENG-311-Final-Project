@@ -62,3 +62,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /SWENG311_part2/build/
+/SWENG311_part2/dist/
