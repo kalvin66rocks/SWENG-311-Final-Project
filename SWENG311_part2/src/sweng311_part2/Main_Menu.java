@@ -175,13 +175,22 @@ public class Main_Menu extends javax.swing.JFrame {
         File selectedFile = null;
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "Serialized Java Files", "ser");
+        "Serialized Java Files (.ser)", "ser");
         fileChooser.setFileFilter(filter);
-        int result = fileChooser.showOpenDialog(this);
+        //fileChooser.
+        int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
             selectedFile = fileChooser.getSelectedFile();
             System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            if(!selectedFile.exists()){
+                try{
+                    selectedFile.createNewFile();
+                    System.out.println("File successfully created");
+                } catch (IOException ex) {
+                    System.err.println("Error creating file");
+                }
+            }
         }
         else{
             System.out.println("No File selected");
@@ -248,7 +257,7 @@ public class Main_Menu extends javax.swing.JFrame {
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "Serialized Java Files", "ser");
+        "Serialized Java Files (.ser)", "ser");
         fileChooser.setFileFilter(filter);
         File selectedFile = null;
         int result = fileChooser.showOpenDialog(this);
