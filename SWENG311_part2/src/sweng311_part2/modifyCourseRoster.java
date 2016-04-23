@@ -215,30 +215,37 @@ public class modifyCourseRoster extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(studentList.getSelectedIndex() != -1){
+        if (studentList.getSelectedIndex() != -1) {
             int selected_student = studentList.getSelectedIndex();
             boolean add = true;
             for (int i = 0; i < SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.size(); i++) {
-                    if (SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.get(i).get_first().equals(SWENG311_part2.students.get(selected_student).get_first()) && SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.get(i).get_last().equals(SWENG311_part2.students.get(selected_student).get_last())) {
-                        add = false;
-                        JOptionPane.showMessageDialog(null, "Student is already in that course, student not added to course");
-                    }
+                if (SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.get(i).get_first().equals(SWENG311_part2.students.get(selected_student).get_first()) && SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.get(i).get_last().equals(SWENG311_part2.students.get(selected_student).get_last())) {
+                    add = false;
+                    JOptionPane.showMessageDialog(null, "Student is already in that course, student not added to course");
+                }
             }
             if (add) {
-                    for (int k = 0; k < SWENG311_part2.rooms.size(); k++) {
-                        for (int i = 0; i < SWENG311_part2.rooms.get(k).courses.size(); i++) {
-                            for (int j = 0; j < SWENG311_part2.rooms.get(k).courses.get(i).students.size(); j++) {
-                                if (SWENG311_part2.rooms.get(k).courses.get(i).students.get(j).get_first().equals(SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.get(selected_student).get_first()) && SWENG311_part2.rooms.get(k).courses.get(i).students.get(j).get_last().equals(SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.get(selected_student).get_last())) {
-                                    //issuess with bounds of array somewhere in these for loops
+                int room_select = SWENG311_part2.rooms.get(selected_room).get_number();
+                int class_time = SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).getTime();
+                String first_add = SWENG311_part2.students.get(selected_student).get_first();
+                String last_add = SWENG311_part2.students.get(selected_student).get_last();
+                for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
+                    //loops through all the courses
+                    for (int j = 0; j < SWENG311_part2.rooms.get(i).courses.size(); j++) {
+                        //loops through all the students taking those courses
+                        if (SWENG311_part2.rooms.get(i).courses.get(j).getTime() == class_time) {
+                            for (int k = 0; k < SWENG311_part2.rooms.get(i).courses.get(j).students.size(); k++) {
+                                //checks to see if we have a matching student
+                                if (SWENG311_part2.rooms.get(i).courses.get(j).students.get(k).get_first().toLowerCase().equals(first_add.toLowerCase()) && SWENG311_part2.rooms.get(i).courses.get(j).students.get(k).get_last().toLowerCase().equals(last_add.toLowerCase())) {
+                                    //signals that we have a conflict
                                     add = false;
                                     JOptionPane.showMessageDialog(null, "Student is already in a course at that time, student not added to course");
                                 }
                             }
                         }
                     }
-                
-
                 }
+            }
             if (add) {
                 SWENG311_part2.rooms.get(selected_room).courses.get(selected_course).students.add(SWENG311_part2.students.get(selected_student));
                 studentsInCourseListModel = new DefaultListModel();
