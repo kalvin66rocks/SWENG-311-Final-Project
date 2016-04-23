@@ -21,6 +21,7 @@ public class Add_delete_students extends javax.swing.JFrame {
 
     public Add_delete_students() {
         initComponents();
+        this.setTitle("Add or Delete Students");
     }
     
     public DefaultListModel setFeel(){

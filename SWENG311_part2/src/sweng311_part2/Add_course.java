@@ -6,6 +6,7 @@
 package sweng311_part2;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Add_course extends javax.swing.JFrame {
     
     public Add_course() {
         initComponents();
+        this.setTitle("Add or Delete a Course");
     }
     
     public DefaultListModel setFeel(){
@@ -158,9 +160,30 @@ public class Add_course extends javax.swing.JFrame {
         time = Integer.parseInt(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()));
         
         System.out.printf("Selected time is %d\n", time);
-        room =jList1.getSelectedIndex();
-        if(!jList1.isSelectionEmpty()){
-        SWENG311_part2.rooms.get(room).courses.add(new Course(course_name,time));
+        if (!jList1.isSelectionEmpty()) {
+            room =jList1.getSelectedIndex();
+            boolean add = true;
+            for (int i = 0; i < SWENG311_part2.rooms.get(room).courses.size(); i++) {
+                if (course_name.equals(SWENG311_part2.rooms.get(room).courses.get(i).getName())) {
+                    add = false;
+                    jTextField2.setText("");
+                    JOptionPane.showMessageDialog(null, "Course already exists, course not added");
+                }
+            }
+            if (add) {
+                for (int i = 0; i < SWENG311_part2.rooms.get(room).courses.size(); i++) {
+                    if (SWENG311_part2.rooms.get(room).courses.get(i).getTime() == time) {
+                        add = false;
+                        jTextField2.setText("");
+                        JOptionPane.showMessageDialog(null, "There is already a course in that room at that time, course not added");
+                    }
+                }
+            }
+                
+            if(add){   
+            SWENG311_part2.rooms.get(room).courses.add(new Course(course_name, time));
+            jTextField2.setText("");
+            }
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
