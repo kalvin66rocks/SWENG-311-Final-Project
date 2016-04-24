@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -118,6 +119,11 @@ public class Main_Menu extends javax.swing.JFrame {
         });
 
         jButton13.setText("View Courses by Time");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -184,12 +190,14 @@ public class Main_Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        //write out the student list
         File selectedFile = null;
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "Serialized Java Files (.ser)", "ser");
         fileChooser.setFileFilter(filter);
-        //fileChooser.
+        fileChooser.setDialogTitle("Choose the Students file");
+        fileChooser.setApproveButtonText("Save Students");
         int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
@@ -225,11 +233,12 @@ public class Main_Menu extends javax.swing.JFrame {
         }
         
         
-        
+        //write out the room list
         selectedFile = null;
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(filter);
-        //fileChooser.
+        fileChooser.setDialogTitle("Choose the Rooms file");
+        fileChooser.setApproveButtonText("Save Rooms");
         result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
@@ -270,57 +279,60 @@ public class Main_Menu extends javax.swing.JFrame {
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
         //create a new jframe that holds the add_course menu
         Add_delete_course frame = new Add_delete_course();
-        //terminate on close
+        //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        //set the default size of the frame
-        //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
 
     }//GEN-LAST:event_Add_CourseActionPerformed
 
     private void addDeleteRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDeleteRoomsActionPerformed
-        //create a new jframe that holds the main menu
+        //create a new jframe that holds the add and delete room menu
         add_delete_room frame = new add_delete_room();
-        //terminate on close
+        //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        //set the default size of the frame
-        //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
     }//GEN-LAST:event_addDeleteRoomsActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        //create a new jframe that holds the student search menu
+        searchStudent frame = new searchStudent();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void addDeleteStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDeleteStudentsActionPerformed
-        //create a new jframe that holds the main menu
+        //create a new jframe that holds the add and delete student menu
         Add_delete_students frame = new Add_delete_students();
-        //terminate on close
+        //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        //set the default size of the frame
-        //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
     }//GEN-LAST:event_addDeleteStudentsActionPerformed
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+        //get the student vector from a file
         JFileChooser fileChooser = new JFileChooser();
+        //filter the file types
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "Serialized Java Files (.ser)", "ser");
+        //set the filter
         fileChooser.setFileFilter(filter);
         File selectedFile = null;
+        fileChooser.setDialogTitle("Choose the Students file");
+        fileChooser.setApproveButtonText("Open Students");
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            //this variable might need accessed elsewhere
             selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         }
         else{
             System.out.println("No File selected");
         }
-        
+        //crreate an input stream
         try{
             input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
         }
@@ -343,16 +355,20 @@ public class Main_Menu extends javax.swing.JFrame {
             //do nothing, excption does not affect me and i want it to go away
         }
         
+        //get the room vector from a file
         fileChooser = new JFileChooser();
+        //make a new filter
         filter = new FileNameExtensionFilter(
         "Serialized Java Files (.ser)", "ser");
         fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Choose the Rooms file");
+        fileChooser.setApproveButtonText("Open Rooms");
         selectedFile = null;
         result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
             selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         }
         else{
             System.out.println("No File selected");
@@ -379,9 +395,6 @@ public class Main_Menu extends javax.swing.JFrame {
         catch (NullPointerException e){
             //do nothing, excption does not affect me and i want it to go away
         }
-        
-        
-        // will need an additional dialgoue for student or room, however this ends up being configured
     }//GEN-LAST:event_importButtonActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -394,13 +407,22 @@ public class Main_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        //create a new jframe that modifies the course rosters
+        //create a new jframe that searches courses by room
         searchRoom frame = new searchRoom();
         //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         //make the frame visible
         frame.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        //create a new jframe that searches by time
+        timeSearch frame = new timeSearch();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments

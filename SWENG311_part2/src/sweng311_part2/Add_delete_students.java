@@ -238,8 +238,12 @@ public class Add_delete_students extends javax.swing.JFrame {
     }//GEN-LAST:event_addStudentButtonActionPerformed
 
     private void deleteStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentButtonActionPerformed
-       try{
+       String first_delete="";
+       String last_delete="";
+        try{
         int position = currentStudentList.getSelectedIndex();
+        first_delete = SWENG311_part2.students.get(position).get_first();
+        last_delete = SWENG311_part2.students.get(position).get_last();
         SWENG311_part2.students.remove(position);
        }
        catch(ArrayIndexOutOfBoundsException e){
@@ -250,6 +254,22 @@ public class Add_delete_students extends javax.swing.JFrame {
             listModel.addElement(SWENG311_part2.students.get(i).get_first() + " " + SWENG311_part2.students.get(i).get_last());
         }
         currentStudentList.setModel(listModel);
+        
+        //delete student from any classes they are in
+        
+        for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
+            //loops through all the courses
+            for (int j = 0; j < SWENG311_part2.rooms.get(i).courses.size(); j++) {
+                //loops through all the students taking those courses
+                for (int k = 0; k < SWENG311_part2.rooms.get(i).courses.get(j).students.size(); k++) {
+                    //checks to see if we have a matching student
+                    if (SWENG311_part2.rooms.get(i).courses.get(j).students.get(k).get_first().toLowerCase().equals(first_delete.toLowerCase()) && SWENG311_part2.rooms.get(i).courses.get(j).students.get(k).get_last().toLowerCase().equals(last_delete.toLowerCase())) {
+                        SWENG311_part2.rooms.get(i).courses.get(j).students.remove(k);
+                        System.out.println("Student deleted from a course remove before presenting");
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_deleteStudentButtonActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
