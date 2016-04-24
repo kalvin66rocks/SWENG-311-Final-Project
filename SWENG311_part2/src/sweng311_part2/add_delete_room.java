@@ -22,7 +22,7 @@ public class add_delete_room extends javax.swing.JFrame {
     
     public add_delete_room() {
         initComponents();
-        this.setTitle("Add or Delete a Room");
+        this.setTitle("Add or Delete Rooms");
     }
     
     public DefaultListModel setFeel(){
@@ -141,6 +141,11 @@ public class add_delete_room extends javax.swing.JFrame {
         }
         catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Room numbers can only contain numbers");
+            valid = false;
+            jTextField6.setText("");
+        }
+        if(valid && number < 1){
+            JOptionPane.showMessageDialog(null, "Room numbers can only be positive numbers greater than 0");
             valid = false;
             jTextField6.setText("");
         }

@@ -21,6 +21,7 @@ public class searchRoom extends javax.swing.JFrame {
     
     public searchRoom() {
         initComponents();
+        this.setTitle("Search by Room");
     }
     
     public DefaultListModel setRoomList(){
