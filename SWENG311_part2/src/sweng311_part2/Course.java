@@ -5,13 +5,14 @@
  */
 package sweng311_part2;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
  *
  * @author kalvi_000
  */
-public class Course {
+public class Course implements Serializable {
     
     private int time;
     private String name;

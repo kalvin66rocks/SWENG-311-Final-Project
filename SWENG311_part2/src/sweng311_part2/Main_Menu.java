@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Vector;
@@ -213,11 +214,50 @@ public class Main_Menu extends javax.swing.JFrame {
         try{
         output.writeObject(SWENG311_part2.students);
         } catch (NoSuchElementException elementException) {
-            System.err.println("Bigger problems as no elent is found");
+            System.err.println("Bigger problems as no element is found");
         } catch (IOException ioException) {
             System.err.println("Error. File failed to open on write");
         }
         
+        
+        
+        selectedFile = null;
+        fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(filter);
+        //fileChooser.
+        result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            if(!selectedFile.exists()){
+                try{
+                    selectedFile.createNewFile();
+                    System.out.println("File successfully created");
+                } catch (IOException ex) {
+                    System.err.println("Error creating file");
+                }
+            }
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        
+        //try to open the file
+        try{
+            output = new ObjectOutputStream(Files.newOutputStream(Paths.get(selectedFile.getPath())));
+        }
+        catch(IOException ioException){
+            System.err.println("Error. File failed to open on open file");
+        }
+        //try to write to the file
+        try{
+        output.writeObject(SWENG311_part2.rooms);
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Bigger problems as no element is found");
+        } catch (IOException ioException) {
+            System.err.println("Error. File failed to open on write");
+        }
         
         // will need an additional dialgoue for room
     }//GEN-LAST:event_exportButtonActionPerformed
@@ -287,6 +327,43 @@ public class Main_Menu extends javax.swing.JFrame {
         try{
             SWENG311_part2.students =(Vector)input.readObject();
         output.writeObject(SWENG311_part2.students);
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Bigger problems as no element is found");
+        } catch (IOException ioException) {
+            System.err.println("Error. File failed to open on write");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Error. class not found exception");
+        }
+        catch (NullPointerException e){
+            //do nothing, excption does not affect me and i want it to go away
+        }
+        
+        fileChooser = new JFileChooser();
+        filter = new FileNameExtensionFilter(
+        "Serialized Java Files (.ser)", "ser");
+        fileChooser.setFileFilter(filter);
+        selectedFile = null;
+        result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        
+        try{
+            input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
+        }
+        catch(IOException ioException){
+            System.err.println("Error. File failed to open on open file");
+        }
+        
+        //try to read from the file
+        try{
+            SWENG311_part2.rooms =(Vector)input.readObject();
+        output.writeObject(SWENG311_part2.rooms);
         } catch (NoSuchElementException elementException) {
             System.err.println("Bigger problems as no element is found");
         } catch (IOException ioException) {
