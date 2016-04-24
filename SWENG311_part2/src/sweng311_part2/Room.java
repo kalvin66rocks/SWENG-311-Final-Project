@@ -15,7 +15,7 @@ import java.util.Vector;
 public class Room implements Serializable  {
     
     private int number;
-    Vector<Course> courses = new Vector<>(1,1);
+    Vector<Course> courses = new Vector<>(0,1);
     public Room(int room_number)
     {
         this.number = room_number;
