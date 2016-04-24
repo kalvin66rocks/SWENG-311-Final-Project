@@ -156,12 +156,7 @@ public class add_delete_room extends javax.swing.JFrame {
             if (!duplicate) {
                 SWENG311_part2.rooms.add(new Room(number));
                 jTextField6.setText("");
-                
-                listModel = new DefaultListModel();
-                for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
-                    listModel.addElement(Integer.toString(SWENG311_part2.rooms.get(i).get_number()));
-                }
-                currentRoomList.setModel(listModel);
+                currentRoomList.setModel(setFeel());
                 jTextField6.setText("");
         
             }

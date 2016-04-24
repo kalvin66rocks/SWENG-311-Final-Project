@@ -63,7 +63,7 @@ public class Main_Menu extends javax.swing.JFrame {
             }
         });
 
-        Add_Course.setText("Add Courses");
+        Add_Course.setText("Add/Delete Courses");
         Add_Course.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Add_CourseActionPerformed(evt);
@@ -104,6 +104,11 @@ public class Main_Menu extends javax.swing.JFrame {
         });
 
         jButton11.setText("Search by Room");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setText("Search by Student");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +146,7 @@ public class Main_Menu extends javax.swing.JFrame {
                             .addComponent(Add_Course, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 141, Short.MAX_VALUE)
+                            .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                             .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(112, Short.MAX_VALUE))
@@ -264,7 +269,7 @@ public class Main_Menu extends javax.swing.JFrame {
 
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
         //create a new jframe that holds the add_course menu
-        Add_course frame = new Add_course();
+        Add_delete_course frame = new Add_delete_course();
         //terminate on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         //set the default size of the frame
@@ -387,6 +392,15 @@ public class Main_Menu extends javax.swing.JFrame {
         //make the frame visible
         frame.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        //create a new jframe that modifies the course rosters
+        searchRoom frame = new searchRoom();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

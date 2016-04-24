@@ -99,7 +99,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="Add_Course">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add Courses"/>
+        <Property name="text" type="java.lang.String" value="Add/Delete Courses"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Add_CourseActionPerformed"/>
@@ -153,6 +153,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Search by Room"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton12">
       <Properties>
