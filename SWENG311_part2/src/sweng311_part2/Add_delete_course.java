@@ -40,10 +40,9 @@ public class Add_delete_course extends javax.swing.JFrame {
         indexCourses = 0;
         for (int i = 0; i < SWENG311_part2.rooms.size(); i++) {
             for(int j = 0; j < SWENG311_part2.rooms.get(i).courses.size(); j++)
-            courseListModel.addElement(SWENG311_part2.rooms.get(i).courses.get(j).getName()+" Room "+SWENG311_part2.rooms.get(i).get_number()  +" Time "+ SWENG311_part2.rooms.get(i).courses.get(j).getTime() );
+            courseListModel.addElement(SWENG311_part2.rooms.get(i).courses.get(j).getName()+" in Room "+SWENG311_part2.rooms.get(i).get_number()  +" at "+ SWENG311_part2.rooms.get(i).courses.get(j).getTime() );
         }
         indexCourses = courseListModel.size();
-        System.out.printf("%d\n", indexCourses);
         return courseListModel;
     }
     
