@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Vector;
@@ -29,6 +30,7 @@ public class Main_Menu extends javax.swing.JFrame {
     private static ObjectInputStream input;
     public Main_Menu() {
         initComponents();
+        this.setTitle("Main Menu");
     }
 
     /**
@@ -76,6 +78,11 @@ public class Main_Menu extends javax.swing.JFrame {
         });
 
         jButton6.setText("Modify Course Rosters");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -130,11 +137,11 @@ public class Main_Menu extends javax.swing.JFrame {
                             .addComponent(importButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(addDeleteRooms, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addDeleteStudents, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(addDeleteStudents, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Add_Course, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                            .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 141, Short.MAX_VALUE)
                             .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(112, Short.MAX_VALUE))
@@ -207,11 +214,50 @@ public class Main_Menu extends javax.swing.JFrame {
         try{
         output.writeObject(SWENG311_part2.students);
         } catch (NoSuchElementException elementException) {
-            System.err.println("Bigger problems as no elent is found");
+            System.err.println("Bigger problems as no element is found");
         } catch (IOException ioException) {
             System.err.println("Error. File failed to open on write");
         }
         
+        
+        
+        selectedFile = null;
+        fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(filter);
+        //fileChooser.
+        result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            if(!selectedFile.exists()){
+                try{
+                    selectedFile.createNewFile();
+                    System.out.println("File successfully created");
+                } catch (IOException ex) {
+                    System.err.println("Error creating file");
+                }
+            }
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        
+        //try to open the file
+        try{
+            output = new ObjectOutputStream(Files.newOutputStream(Paths.get(selectedFile.getPath())));
+        }
+        catch(IOException ioException){
+            System.err.println("Error. File failed to open on open file");
+        }
+        //try to write to the file
+        try{
+        output.writeObject(SWENG311_part2.rooms);
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Bigger problems as no element is found");
+        } catch (IOException ioException) {
+            System.err.println("Error. File failed to open on write");
+        }
         
         // will need an additional dialgoue for room
     }//GEN-LAST:event_exportButtonActionPerformed
@@ -286,13 +332,61 @@ public class Main_Menu extends javax.swing.JFrame {
         } catch (IOException ioException) {
             System.err.println("Error. File failed to open on write");
         } catch (ClassNotFoundException ex) {
-            //Logger.getLogger(Main_Menu.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Error. class not found exception");
+        }
+        catch (NullPointerException e){
+            //do nothing, excption does not affect me and i want it to go away
+        }
+        
+        fileChooser = new JFileChooser();
+        filter = new FileNameExtensionFilter(
+        "Serialized Java Files (.ser)", "ser");
+        fileChooser.setFileFilter(filter);
+        selectedFile = null;
+        result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            //this variable might need accessed elsewhere
+            selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        }
+        else{
+            System.out.println("No File selected");
+        }
+        
+        try{
+            input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
+        }
+        catch(IOException ioException){
+            System.err.println("Error. File failed to open on open file");
+        }
+        
+        //try to read from the file
+        try{
+            SWENG311_part2.rooms =(Vector)input.readObject();
+        output.writeObject(SWENG311_part2.rooms);
+        } catch (NoSuchElementException elementException) {
+            System.err.println("Bigger problems as no element is found");
+        } catch (IOException ioException) {
+            System.err.println("Error. File failed to open on write");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Error. class not found exception");
+        }
+        catch (NullPointerException e){
+            //do nothing, excption does not affect me and i want it to go away
         }
         
         
         // will need an additional dialgoue for student or room, however this ends up being configured
     }//GEN-LAST:event_importButtonActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //create a new jframe that modifies the course rosters
+        modifyCourseRoster frame = new modifyCourseRoster();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

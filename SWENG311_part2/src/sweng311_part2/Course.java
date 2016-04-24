@@ -5,17 +5,18 @@
  */
 package sweng311_part2;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
  *
  * @author kalvi_000
  */
-public class Course {
+public class Course implements Serializable {
     
     private int time;
     private String name;
-    Vector<Student> students = new Vector<>(1,1);
+    Vector<Student> students = new Vector<>(0,1);
   
     public Course (String name,int time){
         this.time = time;

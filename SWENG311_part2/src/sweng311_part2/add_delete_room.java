@@ -22,6 +22,7 @@ public class add_delete_room extends javax.swing.JFrame {
     
     public add_delete_room() {
         initComponents();
+        this.setTitle("Add or Delete a Room");
     }
     
     public DefaultListModel setFeel(){
