@@ -113,7 +113,7 @@ public class timeSearch extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         int time = Integer.parseInt(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()));
         jList1.setModel(setResultList(time));
-        jTextField5.setText("Courses "+ Integer.toString(time));
+        jTextField5.setText("Courses at "+ Integer.toString(time));
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
