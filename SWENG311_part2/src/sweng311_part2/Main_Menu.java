@@ -264,7 +264,7 @@ public class Main_Menu extends javax.swing.JFrame {
 
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
         //create a new jframe that holds the add_course menu
-        Add_course frame = new Add_course();
+        Add_delete_course frame = new Add_delete_course();
         //terminate on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         //set the default size of the frame
