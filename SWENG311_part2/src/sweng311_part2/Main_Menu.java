@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -53,6 +54,7 @@ public class Main_Menu extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,11 +120,23 @@ public class Main_Menu extends javax.swing.JFrame {
         });
 
         jButton13.setText("View Courses by Time");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextField2.setText(" and Scheduling System");
         jTextField2.setBorder(null);
+
+        jButton1.setText("View All Courses");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,7 +162,8 @@ public class Main_Menu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                             .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -172,7 +187,9 @@ public class Main_Menu extends javax.swing.JFrame {
                         .addComponent(jButton13))
                     .addComponent(addDeleteStudents, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton1))
                 .addGap(35, 35, 35)
                 .addComponent(importButton)
                 .addGap(18, 18, 18)
@@ -184,12 +201,14 @@ public class Main_Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        //write out the student list
         File selectedFile = null;
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "Serialized Java Files (.ser)", "ser");
         fileChooser.setFileFilter(filter);
-        //fileChooser.
+        fileChooser.setDialogTitle("File to Save");
+        fileChooser.setApproveButtonText("Save Data");
         int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
@@ -215,7 +234,7 @@ public class Main_Menu extends javax.swing.JFrame {
         catch(IOException ioException){
             System.err.println("Error. File failed to open on open file");
         }
-        //try to write to the file
+        //try to write to the students to a file
         try{
         output.writeObject(SWENG311_part2.students);
         } catch (NoSuchElementException elementException) {
@@ -223,39 +242,7 @@ public class Main_Menu extends javax.swing.JFrame {
         } catch (IOException ioException) {
             System.err.println("Error. File failed to open on write");
         }
-        
-        
-        
-        selectedFile = null;
-        fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(filter);
-        //fileChooser.
-        result = fileChooser.showSaveDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            //this variable might need accessed elsewhere
-            selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-            if(!selectedFile.exists()){
-                try{
-                    selectedFile.createNewFile();
-                    System.out.println("File successfully created");
-                } catch (IOException ex) {
-                    System.err.println("Error creating file");
-                }
-            }
-        }
-        else{
-            System.out.println("No File selected");
-        }
-        
-        //try to open the file
-        try{
-            output = new ObjectOutputStream(Files.newOutputStream(Paths.get(selectedFile.getPath())));
-        }
-        catch(IOException ioException){
-            System.err.println("Error. File failed to open on open file");
-        }
-        //try to write to the file
+        //try to write the rooms to a file
         try{
         output.writeObject(SWENG311_part2.rooms);
         } catch (NoSuchElementException elementException) {
@@ -263,64 +250,65 @@ public class Main_Menu extends javax.swing.JFrame {
         } catch (IOException ioException) {
             System.err.println("Error. File failed to open on write");
         }
-        
-        // will need an additional dialgoue for room
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
         //create a new jframe that holds the add_course menu
         Add_delete_course frame = new Add_delete_course();
-        //terminate on close
+        //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        //set the default size of the frame
-        //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
 
     }//GEN-LAST:event_Add_CourseActionPerformed
 
     private void addDeleteRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDeleteRoomsActionPerformed
-        //create a new jframe that holds the main menu
+        //create a new jframe that holds the add and delete room menu
         add_delete_room frame = new add_delete_room();
-        //terminate on close
+        //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        //set the default size of the frame
-        //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
     }//GEN-LAST:event_addDeleteRoomsActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        //create a new jframe that holds the student search menu
+        searchStudent frame = new searchStudent();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void addDeleteStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDeleteStudentsActionPerformed
-        //create a new jframe that holds the main menu
+        //create a new jframe that holds the add and delete student menu
         Add_delete_students frame = new Add_delete_students();
-        //terminate on close
+        //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        //set the default size of the frame
-        //frame.setSize(500, 500);
         //make the frame visible
         frame.setVisible(true);
     }//GEN-LAST:event_addDeleteStudentsActionPerformed
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
+        //get the student vector from a file
         JFileChooser fileChooser = new JFileChooser();
+        //filter the file types
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "Serialized Java Files (.ser)", "ser");
+        //set the filter
         fileChooser.setFileFilter(filter);
         File selectedFile = null;
+        fileChooser.setDialogTitle("File to Open");
+        fileChooser.setApproveButtonText("Import Data");
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            //this variable might need accessed elsewhere
             selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         }
         else{
             System.out.println("No File selected");
         }
-        
+        //crreate an input stream
         try{
             input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
         }
@@ -343,29 +331,6 @@ public class Main_Menu extends javax.swing.JFrame {
             //do nothing, excption does not affect me and i want it to go away
         }
         
-        fileChooser = new JFileChooser();
-        filter = new FileNameExtensionFilter(
-        "Serialized Java Files (.ser)", "ser");
-        fileChooser.setFileFilter(filter);
-        selectedFile = null;
-        result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            //this variable might need accessed elsewhere
-            selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-        }
-        else{
-            System.out.println("No File selected");
-        }
-        
-        try{
-            input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
-        }
-        catch(IOException ioException){
-            System.err.println("Error. File failed to open on open file");
-        }
-        
-        //try to read from the file
         try{
             SWENG311_part2.rooms =(Vector)input.readObject();
         output.writeObject(SWENG311_part2.rooms);
@@ -380,8 +345,6 @@ public class Main_Menu extends javax.swing.JFrame {
             //do nothing, excption does not affect me and i want it to go away
         }
         
-        
-        // will need an additional dialgoue for student or room, however this ends up being configured
     }//GEN-LAST:event_importButtonActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -394,13 +357,31 @@ public class Main_Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        //create a new jframe that modifies the course rosters
+        //create a new jframe that searches courses by room
         searchRoom frame = new searchRoom();
         //hide on close
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         //make the frame visible
         frame.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        //create a new jframe that searches by time
+        timeSearch frame = new timeSearch();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //create a new jframe that displays all the courses
+        viewAll frame = new viewAll();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,6 +424,7 @@ public class Main_Menu extends javax.swing.JFrame {
     private javax.swing.JButton addDeleteStudents;
     private javax.swing.JButton exportButton;
     private javax.swing.JButton importButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
