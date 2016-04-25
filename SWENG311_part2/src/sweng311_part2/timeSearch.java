@@ -22,6 +22,8 @@ public class timeSearch extends javax.swing.JFrame {
     public timeSearch() {
         initComponents();
         this.setTitle("Search Courses by time");
+        jList1.setModel(setResultList(Integer.parseInt(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))));
+        jTextField5.setText("Courses at "+ Integer.toString(Integer.parseInt(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))));
     }
     
     

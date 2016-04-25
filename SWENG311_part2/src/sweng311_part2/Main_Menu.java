@@ -54,6 +54,7 @@ public class Main_Menu extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,6 +131,13 @@ public class Main_Menu extends javax.swing.JFrame {
         jTextField2.setText(" and Scheduling System");
         jTextField2.setBorder(null);
 
+        jButton1.setText("View All Courses");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,7 +162,8 @@ public class Main_Menu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                             .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -178,7 +187,9 @@ public class Main_Menu extends javax.swing.JFrame {
                         .addComponent(jButton13))
                     .addComponent(addDeleteStudents, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton1))
                 .addGap(35, 35, 35)
                 .addComponent(importButton)
                 .addGap(18, 18, 18)
@@ -424,6 +435,15 @@ public class Main_Menu extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //create a new jframe that displays all the courses
+        viewAll frame = new viewAll();
+        //hide on close
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        //make the frame visible
+        frame.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -465,6 +485,7 @@ public class Main_Menu extends javax.swing.JFrame {
     private javax.swing.JButton addDeleteStudents;
     private javax.swing.JButton exportButton;
     private javax.swing.JButton importButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
