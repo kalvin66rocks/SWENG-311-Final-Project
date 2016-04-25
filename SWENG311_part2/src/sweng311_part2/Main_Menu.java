@@ -207,8 +207,8 @@ public class Main_Menu extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "Serialized Java Files (.ser)", "ser");
         fileChooser.setFileFilter(filter);
-        fileChooser.setDialogTitle("Choose the Students file");
-        fileChooser.setApproveButtonText("Save Students");
+        fileChooser.setDialogTitle("File to Save");
+        fileChooser.setApproveButtonText("Save Data");
         int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
@@ -234,7 +234,7 @@ public class Main_Menu extends javax.swing.JFrame {
         catch(IOException ioException){
             System.err.println("Error. File failed to open on open file");
         }
-        //try to write to the file
+        //try to write to the students to a file
         try{
         output.writeObject(SWENG311_part2.students);
         } catch (NoSuchElementException elementException) {
@@ -242,40 +242,7 @@ public class Main_Menu extends javax.swing.JFrame {
         } catch (IOException ioException) {
             System.err.println("Error. File failed to open on write");
         }
-        
-        
-        //write out the room list
-        selectedFile = null;
-        fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(filter);
-        fileChooser.setDialogTitle("Choose the Rooms file");
-        fileChooser.setApproveButtonText("Save Rooms");
-        result = fileChooser.showSaveDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            //this variable might need accessed elsewhere
-            selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-            if(!selectedFile.exists()){
-                try{
-                    selectedFile.createNewFile();
-                    System.out.println("File successfully created");
-                } catch (IOException ex) {
-                    System.err.println("Error creating file");
-                }
-            }
-        }
-        else{
-            System.out.println("No File selected");
-        }
-        
-        //try to open the file
-        try{
-            output = new ObjectOutputStream(Files.newOutputStream(Paths.get(selectedFile.getPath())));
-        }
-        catch(IOException ioException){
-            System.err.println("Error. File failed to open on open file");
-        }
-        //try to write to the file
+        //try to write the rooms to a file
         try{
         output.writeObject(SWENG311_part2.rooms);
         } catch (NoSuchElementException elementException) {
@@ -283,8 +250,6 @@ public class Main_Menu extends javax.swing.JFrame {
         } catch (IOException ioException) {
             System.err.println("Error. File failed to open on write");
         }
-        
-        // will need an additional dialgoue for room
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void Add_CourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_CourseActionPerformed
@@ -333,8 +298,8 @@ public class Main_Menu extends javax.swing.JFrame {
         //set the filter
         fileChooser.setFileFilter(filter);
         File selectedFile = null;
-        fileChooser.setDialogTitle("Choose the Students file");
-        fileChooser.setApproveButtonText("Open Students");
+        fileChooser.setDialogTitle("File to Open");
+        fileChooser.setApproveButtonText("Import Data");
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             selectedFile = fileChooser.getSelectedFile();
@@ -366,33 +331,6 @@ public class Main_Menu extends javax.swing.JFrame {
             //do nothing, excption does not affect me and i want it to go away
         }
         
-        //get the room vector from a file
-        fileChooser = new JFileChooser();
-        //make a new filter
-        filter = new FileNameExtensionFilter(
-        "Serialized Java Files (.ser)", "ser");
-        fileChooser.setFileFilter(filter);
-        fileChooser.setDialogTitle("Choose the Rooms file");
-        fileChooser.setApproveButtonText("Open Rooms");
-        selectedFile = null;
-        result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            //this variable might need accessed elsewhere
-            selectedFile = fileChooser.getSelectedFile();
-            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-        }
-        else{
-            System.out.println("No File selected");
-        }
-        
-        try{
-            input = new ObjectInputStream(Files.newInputStream(Paths.get(selectedFile.getPath())));
-        }
-        catch(IOException ioException){
-            System.err.println("Error. File failed to open on open file");
-        }
-        
-        //try to read from the file
         try{
             SWENG311_part2.rooms =(Vector)input.readObject();
         output.writeObject(SWENG311_part2.rooms);
@@ -406,6 +344,7 @@ public class Main_Menu extends javax.swing.JFrame {
         catch (NullPointerException e){
             //do nothing, excption does not affect me and i want it to go away
         }
+        
     }//GEN-LAST:event_importButtonActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
