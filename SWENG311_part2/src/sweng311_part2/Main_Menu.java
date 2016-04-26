@@ -213,18 +213,18 @@ public class Main_Menu extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             //this variable might need accessed elsewhere
             selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
             if(!selectedFile.exists()){
                 try{
                     selectedFile.createNewFile();
-                    System.out.println("File successfully created");
+                    JOptionPane.showMessageDialog(null, "File successfully created");
                 } catch (IOException ex) {
-                    System.err.println("Error creating file");
+                    JOptionPane.showMessageDialog(null, "Error creating file");
                 }
             }
         }
         else{
-            System.out.println("No File selected");
+            JOptionPane.showMessageDialog(null, "No File selected");
         }
         
         //try to open the file
@@ -306,7 +306,7 @@ public class Main_Menu extends javax.swing.JFrame {
             //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         }
         else{
-            System.out.println("No File selected");
+            JOptionPane.showMessageDialog(null, "No File selected");
         }
         //crreate an input stream
         try{
